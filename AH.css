@@ -1,0 +1,645 @@
+@font-face {
+    font-family: 'Dumverse';
+    src: url('./Dumverse_Font.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+body, html {
+    z-index: 2;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Dumverse', Georgia, Arial;
+    color: white;
+    background: linear-gradient(to right, #8c52ff, #5ce1e6);
+
+}
+
+.header {
+    width: 100%;
+    padding: 5px 0;
+    display: flex;
+    justify-content: center;  /* Center the entire content of the header */
+    align-items: center;
+    
+    position: relative;  /* Allows absolute positioning for the button */
+}
+
+.header h1 {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    padding-top: 15px;
+    text-align: center;  /* Ensure the text is centered */
+    font-weight: 200;
+    font-size: 7vh;
+}
+
+
+.mainLogo {
+    height: 15%;
+    position: absolute;
+    margin-top: 15px;
+    margin-left: 25px;
+}
+
+.logo-container {
+    margin: 0;
+    padding: 0;
+}
+
+.connect-button {
+    font-family: 'Dumverse';
+    padding: 8px 16px;
+    font-size: 26px;
+    color: #ffffff;
+    background: linear-gradient(to right, #9cd7ed, #029dd1);
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    position: absolute;
+    right: 20px;  /* Position the button to the right */
+}
+
+.connect-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+.connect-button:active {
+    transform: scale(0.95);  /* Slightly shrink the button */
+    box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.3);  /* Add an inset shadow to make it look pressed */
+    cursor: pointer;
+}
+
+
+.container {
+    flex-grow: 1;
+    padding: 20px;
+    margin: 0 auto;  /* Center the entire container */
+    width: 80%;  /* Limit the width for better alignment */
+}
+
+.form-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 20px auto;  /* Center the form itself */
+    padding: 20px;
+    border-radius: 15px;
+    background-color: #8c52ff;
+}
+
+.form-container h2 {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: 200;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 200;
+}
+
+.form-group input, .form-group select {
+    width: 100%;  /* Ensure inputs are full width */
+    max-width: 150px;  /* Limit the width of inputs */
+    width: 150px;
+    padding: 10px;
+    border: 1px solid #cccccc;
+    border-radius: 10px;
+    font-size: 14px;
+    text-align: left;  /* Center the text inside input fields */
+}
+
+.button {
+    padding: 10px 20px;
+    font-size: 26px;
+    font-family: 'Dumverse';
+    color: #ffffff;
+    background: linear-gradient(to right, #9cd7ed, #029dd1);
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 20px;
+}
+
+.button:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+.button:active {
+    transform: scale(0.95);  /* Slightly shrink the button */
+    box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.3);  /* Add an inset shadow to make it look pressed */
+    cursor: pointer;
+}
+
+.placeBidButton{
+    padding: 10px 20px;
+    font-size: 16px;
+    font-family: 'Dumverse';
+    color: #ffffff;
+    background: linear-gradient(to right, #9cd7ed, #029dd1);
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 20px;
+}
+
+/* Dropdown Option Styling */
+.dropdown-option {
+    cursor: pointer;
+    padding: 16px; /* Adjusted padding to accommodate the larger thumbnail */
+    display: flex;
+
+}
+
+
+
+/* Thumbnail and Title Styling */
+.dropdown-option img{
+    width: 250px;
+    height: auto;
+    margin-bottom: 10px; /* Space between image and title */
+}
+
+.dropdown-option span{
+    text-align: center;
+    font-size: 16px;
+}
+
+#assetDropdown {
+    position: relative;
+    margin-left: 43%;
+    padding-bottom: 15px;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* Pagination buttons */
+.pagination-controls {
+    margin: 50px;
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Dumverse';
+    color: white;
+    font-size: 26px;
+
+}
+
+.pagination-controls button {
+    margin-bottom: 25px;
+    padding: 8px 16px;
+    font-family: 'Dumverse';
+    font-size: 26px;
+    color: white;
+    background: linear-gradient(to right, #9cd7ed, #029dd1);
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.pagination-controls button:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.pagination-controls button:active {
+    transform: scale(0.95);  /* Slightly shrink the button */
+    box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.3);  /* Add an inset shadow to make it look pressed */
+}
+
+
+
+
+/* Add this to your CSS file */
+.toast-message {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    z-index: 10000;
+    opacity: 0; /* Start hidden */
+    visibility: hidden; /* Ensure it's hidden initially */
+    transition: opacity 0.5s ease-in-out, visibility 0.5s;
+}
+
+.toast-show {
+    opacity: 1; /* Fade in */
+    visibility: visible; /* Show the element */
+}
+
+.toast-hide {
+    opacity: 0; /* Fade out */
+    visibility: hidden; /* Hide the element */
+}
+
+
+
+.auction-image {
+    margin-right: 0px;
+    margin-left: 20px;
+    margin-top: 10px;
+    margin-bottom: 0px;
+    right: auto;
+    padding: 0%;
+    width: 500px;      /* Set a fixed width */
+    height: 500px;     /* Set a fixed height to ensure a uniform box size */
+    object-fit: contain;  /* Ensure the image fits within the box without being distorted */
+    border-radius: 8px;
+    border: solid white;
+}
+
+.auction-quantity {
+    text-align: center;
+    border-bottom: solid 2px white;
+    margin-top: 0px;
+    margin-bottom: 5px;
+    padding-bottom: 10px;
+}
+
+.auction-price {
+    display: flex;                 /* Enable flexbox layout */
+    justify-content: space-between; /* Push the text to the left and span to the right */
+    align-items: center; 
+    margin-bottom: 5px;          /* Vertically align items in the middle */
+}
+
+.auction-price span {
+    margin-left: 5px;
+    display: inline-block;         /* Ensure the span behaves like a block but stays inline */
+    padding: 7px;
+    background-color: rgba(255, 255, 255, 0.4);
+    text-align: center;            /* Center the text within the span */
+    min-width: 200px; 
+    width: 80;             /* Optional: set a minimum width to control size */
+    border-radius: 8px;    /* Center the text within the box */
+}
+
+.auction-bid {
+    display: flex;                 /* Enable flexbox layout */
+    justify-content: space-between; /* Push the text to the left and span to the right */
+    align-items: center; 
+    margin-bottom: 5px; 
+}
+
+.auction-bid span {
+    margin-left: 5px;
+    display: inline-block;         /* Ensure the span behaves like a block but stays inline */
+    padding: 7px;
+    background-color: rgba(255, 255, 255, 0.4);
+    text-align: center;            /* Center the text within the span */
+    min-width: 200px;              /* Optional: set a minimum width to control size */
+    border-radius: 8px;            /* Optional: give the span rounded corners */
+}
+
+.auction-details h3 {
+    text-decoration: underline;
+    text-align: center;
+    margin-right: 20px;
+    margin-left: 0px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-weight: 200;
+    font-size: 32px;
+}
+
+
+.auction-details p {
+    font-weight: 200;
+    font-size: 20px;
+}
+
+.auction-box {
+    margin: 20px;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 25px;
+    width: auto;
+    height: 80%; /* Allow it to grow fully in height */
+    display: flex;  /* Use flexbox */
+    flex-direction: column; /* Stack children vertically */
+    justify-content: space-between; /* Ensure space is evenly distributed */
+    box-sizing: border-box; /* Make sure padding and border are included in width/height */
+}
+
+
+
+.asset-owner {
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 10px;
+    margin-bottom: 0;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.asset-owner span a {
+    color: white; /* Keep the link text always white */
+    text-decoration: none; /* Remove the default underline */
+}
+
+.asset-owner span a:hover {
+    text-decoration: underline; /* Show underline on hover */
+}
+
+/* Optional: Override default visited and active link styles */
+.asset-owner span a:visited,
+.asset-owner span a:active {
+    color: white; /* Ensure visited or active state doesn't change color */
+}
+
+.auction-end {
+    text-align: center;
+    margin: auto;
+}
+
+.auction-countdown {
+    width: 100%;
+    text-align: center;
+    margin: auto;
+    padding-bottom: 0;
+    margin-top: 20px;
+    margin-bottom: 0px;
+    border-bottom: solid 2px white;
+}
+
+.countdown-timer {
+    text-align: center;
+    margin: auto;
+    padding-bottom: 0px;
+}
+
+.last-bidder h3 {
+    text-decoration: underline;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-weight: 200;
+    font-size: 20px;
+}
+
+.last-bidder p {
+    margin-top: 0px;
+    margin-bottom: 5px;
+    padding: 5px;
+    border-radius: 10px;
+    text-align: center;
+    color: white;
+}
+
+.bidder-address span a {
+    color: white; /* Keep the link text always white */
+    text-decoration: none; /* Remove the default underline */
+}
+
+.bidder-address span a:hover {
+    text-decoration: underline; /* Show underline on hover */
+}
+
+/* Optional: Override default visited and active link styles */
+.bidder-address span a:visited,
+.bidder-address span a:active {
+    color: white; /* Ensure visited or active state doesn't change color */
+}
+
+
+/* General layout for auction grid */
+.live-auctions {
+    display: inline-flex;
+    background-color: #8c52ff;
+    width: auto;
+    max-width: 1200px;
+    margin: auto;
+    margin-bottom: 0px;
+    border-radius: 15px;
+}
+
+
+
+
+
+
+/* Button styling inside the modal */
+.bid-section {
+    border-bottom: solid 2px white;
+}
+
+.bid-section .bidAmountInput {
+    margin-bottom: 0;
+    height: 16px;  
+    padding: 10px;  
+    margin-right: 10px;
+    font-size: 16px;  
+    border-radius: 15px;
+    border: solid 1px white;
+    font-family: Dumverse;
+}
+
+
+#placeBidButton {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    padding: 10px 35px;
+    font-size: 16px;
+    color: #ffffff;
+    background: linear-gradient(to right, #9cd7ed, #029dd1);
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+}
+
+#placeBidButton:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+#placeBidButton:active {
+    transform: scale(0.95);
+    box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.3);
+}
+
+#cancelAuctionButton {
+    margin: auto;
+    width: 100%;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+}
+
+#cancelAuctionButton:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+#cancelAuctionButton:active {
+    transform: scale(0.95);
+    box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.3);
+}
+
+#cancelAuctionButton:disabled {
+    display: none;
+}
+
+/* Modal Popup */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+
+.modal-content h2 {
+    font-weight: 200;
+}
+
+.modal-content p {
+    font-weight: 200;
+}
+
+/* Modal close button */
+.modal .close {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.modal .close:hover,
+.modal .close:focus {
+    transform: scale(1.15);
+    cursor: pointer;
+}
+
+.modal .close:active {
+    transform: scale(0.95);  /* Slightly shrink the button */
+    cursor: pointer;
+}
+
+/* Ensure the image fits neatly inside the modal */
+.modal img.auction-image {
+    width: 100%;
+    height: 300px; /* Fixed height for the image */
+    object-fit: contain; /* Ensure the image scales and fits inside the container */
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+
+/* Small Devices (Phones, <600px) */
+@media (max-width: 599px) {
+    .container {
+        width: 90%; /* Reduce width for smaller screens */
+    }
+
+    .form-container {
+        max-width: 100%; /* Make form full-width */
+        padding: 15px;
+    }
+
+    .form-group input, .form-group select {
+        max-width: 100%; /* Full width for inputs */
+        font-size: 14px;
+    }
+
+    #assetDropdown .selected {
+        width: 250px; /* Smaller asset preview */
+        height: 250px;
+        position: relative;
+    }
+
+    .connect-button {
+        right: 10px;
+    }
+
+    .auction-thumbnail {
+        height: 300px; /* Adjust thumbnail height */
+    }
+}
+
+/* Medium Devices (Tablets, 600px - 900px) */
+@media (min-width: 600px) and (max-width: 899px) {
+    .container {
+        width: 85%; /* Slightly reduce width */
+    }
+
+    .form-container {
+        max-width: 90%; /* Expand form container */
+    }
+
+    .form-group input, .form-group select {
+        max-width: 100%;
+        font-size: 15px;
+    }
+
+    #assetDropdown .selected {
+        width: 275px; /* Adjust asset preview size */
+        height: 275px;
+        position: relative;
+        margin-right: 100px;
+    }
+
+    .auction-thumbnail {
+        height: 325px; /* Adjust thumbnail size */
+    }
+}
+
+/* Large Devices (Desktops, 900px - 1200px) */
+@media (min-width: 900px) and (max-width: 1199px) {
+    .container {
+        width: 75%;
+    }
+
+    .form-container {
+        max-width: 80%; /* Maintain layout */
+    }
+
+    .form-group input, .form-group select {
+        font-size: 16px;
+    }
+
+    #assetDropdown {
+        margin-left: 40%; /* Adjust to maintain alignment */
+    }
+}
+
+
+
