@@ -400,68 +400,51 @@ async function getAuctionDetails(auctionId, assetId) {
 }
 
 async function placeBid(auctionId, bidderProfileId, auctionProcessId, minBid, highestBid) {
-    const bidAmountInput = document.querySelector(".bidAmountInput");
-    await ensureWalletConnected(); // Verify wallet connection
-
-    // Parse bid amount entered by the user
-    const enteredBidAmount = parseFloat(bidAmountInput.value);
-    console.log("Entered bid amount:", enteredBidAmount);
-
-    if (!bidAmountInput || enteredBidAmount < 0.000001) {
-        showToast("Error: Minimum bid is 0.000001 wAR.");
-        console.log("Bid rejected: Entered bid is less than minimum bid requirement.");
+    if (!profileId) {
+        showToast(`You need a BazAR profile to place bids. Please create one <a href="https://bazar.arweave.net/" target="_blank" style="color: #ffffff; text-decoration: underline;">here</a>.`);
         return;
     }
 
-    // Handle case where highestBid is "No Bids" by setting it to 0
-    const highestBidValue = highestBid === "No Bids" ? 0 : parseFloat(highestBid);
-    console.log("minBid:", minBid, "highestBid (converted):", highestBidValue);
+    const bidAmountInput = document.querySelector(".bidAmountInput");
+    await ensureWalletConnected();
 
-    // Get the greater value between minBid and highestBidValue
-    const minimumRequiredBid = Math.max(minBid, highestBidValue); // Get the higher value
-    console.log("Bid must be more than:", minimumRequiredBid);
-    
-    // Compare entered bid with the minimum required bid
+    const enteredBidAmount = parseFloat(bidAmountInput.value);
+    if (!bidAmountInput || enteredBidAmount < 0.000001) {
+        showToast("Error: Minimum bid is 0.000001 wAR.");
+        return;
+    }
+
+    const highestBidValue = highestBid === "No Bids" ? 0 : parseFloat(highestBid);
+    const minimumRequiredBid = Math.max(minBid, highestBidValue);
     if ((enteredBidAmount < minBid) || (highestBidValue !== 0 && enteredBidAmount <= highestBidValue)) {
         const errorMessage = highestBidValue !== 0
             ? `Error: Bid must be greater than ${highestBidValue} wAR.`
             : `Error: Bid must be at least ${minBid} wAR.`;
-        
         showToast(errorMessage);
-        console.log(`Bid rejected: Entered bid (${enteredBidAmount} wAR) is not valid.`);
-        return;  // Prevent further execution if bid is too low
+        return;
     }
-    
 
-    // Convert the bid to the correct 12-decimal format for wAR
-    const bidAmount = (enteredBidAmount * 1e12).toString();  // Convert to 12-decimal format
-    console.log("Converted bid amount (12-decimal format):", bidAmount);
-
+    const bidAmount = (enteredBidAmount * 1e12).toString();
     try {
-        // Step 1: Get the wallet address and store it in a variable
         const walletAddress = await window.arweaveWallet.getActiveAddress();
         const signer = createDataItemSigner(window.arweaveWallet);
 
         console.log("Proceeding to send the bid transaction...");
-
-        // Step 2: Transfer the bid amount (wAR transfer)
         const transferResponse = await message({
-            process: "xU9zFkq3X2ZQ6olwNVvr1vUWIjc3kXTWr7xKQD6dh10",  // wAR process
+            process: "xU9zFkq3X2ZQ6olwNVvr1vUWIjc3kXTWr7xKQD6dh10",
             tags: [
                 { name: "Action", value: "Transfer" },
-                { name: "Target", value: "xU9zFkq3X2ZQ6olwNVvr1vUWIjc3kXTWr7xKQD6dh10" }, // wAR static address
-                { name: "Recipient", value: auctionProcessId },  // Auction process ID
-                { name: "Quantity", value: bidAmount }  // Bid amount in 12-decimal format
+                { name: "Target", value: "xU9zFkq3X2ZQ6olwNVvr1vUWIjc3kXTWr7xKQD6dh10" },
+                { name: "Recipient", value: auctionProcessId },
+                { name: "Quantity", value: bidAmount }
             ],
             signer: signer
         });
 
         console.log("Transfer command sent. Message ID:", transferResponse);
-
-        // Step 3: Fetch the result of the transfer (Debit-Notice)
         const resultData = await result({
-            message: transferResponse,  // Message ID from transferResponse
-            process: "xU9zFkq3X2ZQ6olwNVvr1vUWIjc3kXTWr7xKQD6dh10"  // wAR process ID
+            message: transferResponse,
+            process: "xU9zFkq3X2ZQ6olwNVvr1vUWIjc3kXTWr7xKQD6dh10"
         });
 
         const debitNotice = resultData.Messages?.find(
@@ -471,35 +454,34 @@ async function placeBid(auctionId, bidderProfileId, auctionProcessId, minBid, hi
         if (debitNotice) {
             console.log("Debit-Notice received. Proceeding to place bid...");
             await new Promise(resolve => setTimeout(resolve, 2000));
-
-            // Step 4: Place the bid once the transfer is successful
             const bidResponse = await message({
-                process: auctionProcessId,  // Auction process ID
+                process: auctionProcessId,
                 tags: [
                     { name: "Action", value: "Place-Bid" },
-                    { name: "AuctionId", value: auctionId },  // Auction ID
-                    { name: "BidderProfileID", value: bidderProfileId }  // Bidder's profile ID
+                    { name: "AuctionId", value: auctionId },
+                    { name: "BidderProfileID", value: bidderProfileId }
                 ],
                 signer: signer
             });
 
             const bidResultData = await result({
                 message: bidResponse,
-                process: auctionProcessId  // Auction process ID
+                process: auctionProcessId
             });
 
             const successMessage = bidResultData.Output?.data || "Bid placed successfully.";
             showToast(successMessage);
-            await fetchLiveAuctions();  // Refresh the auction list
+            await fetchLiveAuctions();
         } else {
             console.error("No Debit-Notice found.");
             showToast("Error: Bid transfer failed.");
         }
     } catch (error) {
         console.error("Error placing bid:", error);
-        showToast("Enter a bid amount to place a bid.");
+        showToast("Error: Could not place bid.");
     }
 }
+
 
 
 
@@ -550,24 +532,24 @@ async function getBazARProfile() {
 
         console.log("Profile retrieval response:", profileResponse);
 
-        // Parse the profile data
         if (profileResponse && profileResponse.Messages && profileResponse.Messages[0] && profileResponse.Messages[0].Data) {
             const profileData = JSON.parse(profileResponse.Messages[0].Data);
             if (profileData && profileData[0] && profileData[0].ProfileId) {
-                profileId = profileData[0].ProfileId;  // Store Profile ID globally
+                profileId = profileData[0].ProfileId;
                 console.log("Retrieved Profile ID:", profileId);
+                await fetchOwnedAssets(); // Fetch assets if the profile is found
             } else {
                 throw new Error("Profile ID not found in the response.");
             }
         } else {
             throw new Error("No valid data found in the response.");
         }
-
-        await fetchOwnedAssets(); // Fetch the user's assets once the profile is found
     } catch (error) {
         console.error("Error retrieving BazAR profile:", error);
+        showToast(`Profile not found. Please create a profile at <a href="https://bazar.arweave.net/" target="_blank" style="color: #ffffff; text-decoration: underline;">BazAR</a>.`);
     }
 }
+
 
 
 // General function to close a specific modal by ID
@@ -979,7 +961,7 @@ function removeAnsiCodes(str) {
 function showToast(message) {
     const toast = document.createElement('div');
     toast.className = 'toast-message toast-show';  // Add initial classes for visibility
-    toast.textContent = message;
+    toast.innerHTML = message;
     document.body.appendChild(toast);
 
     // Set a timeout to remove the toast after 3 seconds
